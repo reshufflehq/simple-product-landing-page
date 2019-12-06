@@ -1,0 +1,16 @@
+{
+  "name": "express-only",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@reshuffle/code-transform": "^0.1.0",
+    "@reshuffle/db": "^0.5.4",
+    "@reshuffle/local-proxy": "^0.3.1",
+    "@reshuffle/server-function": "^0.1.0",
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "reshuffle-local-server",
+    "build": "echo nothing to build"
+  }
+}
