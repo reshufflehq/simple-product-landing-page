@@ -1,5 +1,6 @@
 import express from 'express';
 import { get } from '@reshuffle/db';
+import path from 'path';
 
 const app = express();
 
@@ -13,8 +14,11 @@ app.get('/hello', async (_, res) => {
   }
 });
 
-app.get('/', (_, res) => {
-  res.end('hello from express');
+app.use(express.static("public"));
+
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
 
 export default app;
