@@ -30,7 +30,14 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "5.10.2",
+        "@reshuffle/code-transform": "^0.1.0",
+        "@reshuffle/db": "^0.5.5",
+        "@reshuffle/fetch-runtime": "^0.1.0",
+        "@reshuffle/local-proxy": "^0.3.1",
+        "@reshuffle/passport": "0.0.4",
+        "@reshuffle/server-function": "^0.2.1",
         "bootstrap": "4.3.1",
+        "express-handlebars": "^3.1.0",
         "jquery": "3.4.1"
     },
     "devDependencies": {

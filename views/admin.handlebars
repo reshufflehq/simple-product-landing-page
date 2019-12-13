@@ -1,0 +1,43 @@
+<html>
+<head>
+<script>
+    function updateFields() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("results").innerHTML = "<div>value updated!<div>"
+        }
+      };
+      xhttp.open("POST", "./update", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(`{"product":"${document.getElementById("product").value}",
+       "pitch":"${document.getElementById("pitch").value}"}`);
+    }
+  </script>
+</head>
+
+<body>
+<h1>Hello: {{user.displayName}}</h1>
+
+<div>
+<h2>update page content</h2>
+
+    <label>Product name</label>
+    <input type="text" name="product" id="product" value="{{texts.product}}"/>
+    <br/>
+    <label>Product pitch</label>
+    <textarea name="pitch" id="pitch">{{texts.pitch}}</textarea>
+    <br/>
+    <button id="save" onclick="updateFields()">Save</button>
+    <div id="results"> </div>
+<h2>Registered user</h2>
+<ul>
+    {{#each data}}
+     <li>Email: <b> {{this.value.email}}</b> registered at {{this.value.time}}</li>
+    {{/each}}
+</ul>
+</div>
+
+</body>
+</html>
+
