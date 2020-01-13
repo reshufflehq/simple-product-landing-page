@@ -1,52 +1,57 @@
-<div class="overlay"></div>
-  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="mp4/bg.mp4" type="video/mp4">
-  </video>
-
-  <div class="masthead">
-    <div class="masthead-bg"></div>
-    <div class="container h-100">
-      <div class="row h-100">
-        <div class="col-12 my-auto">
-          <div class="masthead-content text-white py-5 py-md-0">
-            <h1 class="mb-3">{{texts.product}}</h1>
-            <p class="mb-5">{{{texts.pitch}}}</p>
-            <div id="form" class="input-group input-group-newsletter">
-              <input id="email" type="email" class="form-control" placeholder="Enter email..." aria-label="Enter email..."
-                aria-describedby="basic-addon">
-              <div class="input-group-append">
-                <button class="btn btn-secondary" type="button" onclick="newRegister()">Notify Me!</button>
+<div class="overlay" style="background-color:{{texts.secondary}}"></div>
+<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+  <source src="{{texts.video}}"> </video>
+<div class="masthead">
+  <div class="masthead-bg" style="background-color:{{texts.primary}}"></div>
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-12 my-auto">
+        <div class="masthead-content text-white py-5 py-md-0">
+          <h1 class="mb-3">{{texts.product}}</h1>
+          <p class="mb-5">{{texts.pitch}}</p>
+          <div id="form" class=" input-group-newsletter">
+            <div class='form-group'>
+              <input id="email" type="email" class="form-control" placeholder="Enter email..."
+                aria-label="Enter email..." aria-describedby="email" required />
+              <div class="invalid-feedback">
+                Please enter valid email address
               </div>
+            </div>
+
+            <div class="input-group-append">
+              <button class="btn btn-secondary" style="background-color:{{texts.secondary}};" type=" button"
+                onclick="newRegister()">Notify Me!</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="social-icons">
-    <ul class="list-unstyled text-center mb-0">
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
+<div class="social-icons">
+  <ul class="list-unstyled text-center mb-0">
+    <li class="list-unstyled-item">
+      <a target="_blank" href="{{texts.twitter}}" style="background-color:{{texts.primary}};">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li class="list-unstyled-item">
+      <a target="_blank" href="{{texts.facebook}}" style="background-color:{{texts.primary}};">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li class="list-unstyled-item">
+      <a target="_blank" href="{{texts.instegram}}" style="background-color:{{texts.primary}};">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </li>
+  </ul>
+</div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Custom scripts for this template -->
-  <script src="js/coming-soon.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/coming-soon.min.js"></script>

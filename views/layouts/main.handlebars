@@ -23,29 +23,50 @@
 
   <!-- Custom styles for this template -->
   <link href="css/coming-soon.min.css" rel="stylesheet">
-    <style>
-/* unvisited link */
-a:link {
-  color: white;
-}
+  <style>
+    /* unvisited link */
+    a:link {
+      color: white;
+    }
 
-/* visited link */
-a:visited {
-  color: white;
-}
+    /* visited link */
+    a:visited {
+      color: white;
+    }
 
-/* mouse over link */
-a:hover {
-  color: white;
-}
+    /* mouse over link */
+    a:hover {
+      color: white;
+    }
 
-/* selected link */
-a:active {
-  color: white;
-}
-</style>
+    /* selected link */
+    a:active {
+      color: white;
+    }
+
+    header {
+      padding: 156px 0 100px;
+    }
+
+    section {
+      padding: 150px 0;
+    }
+
+    .invalid-feedback {
+      font-size: 100%;
+      color: white;
+    }
+  </style>
   <script>
     function newRegister() {
+      const email = document.getElementById("email");
+      if (!validateEmail(email.value)) {
+        email.classList.add('is-invalid');
+        console.log(false);
+        return;
+      }
+      email.classList.remove('is-invalid');
+      console.log(true);
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -54,7 +75,15 @@ a:active {
       };
       xhttp.open("POST", "./register", true);
       xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send('{"email":"' + document.getElementById("email").value + '"}');
+      xhttp.send('{"email":"' + email.value + '"}');
+
+    }
+
+    function validateEmail(email) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        return (true)
+      }
+      return (false)
     }
   </script>
 
@@ -62,7 +91,8 @@ a:active {
 
 <body>
 
-    {{{body}}}
+  {{{body}}}
 
 </body>
+
 </html>
