@@ -4,6 +4,7 @@ const db = require('@reshuffle/db');
 import path from 'path';
 import { defaultHandler } from '@reshuffle/server-function';
 import { schema } from './schema';
+import { defaultStyle } from './constants';
 import { authHandler } from '@reshuffle/passport';
 const moment = require('moment');
 const devDBAdmin = require('@reshuffle/db-admin');
@@ -70,10 +71,9 @@ app.post('/update', express.json(), async function(req, res) {
   let key = `texts`;
   const created = await db.update(key, () => {
     const body = { ...req.body };
-    body['primary'] = body['primary'] === '' ? `#002e66` : body['primary'];
-    body['secondary'] =
-      body['secondary'] === '' ? `#cd9557` : body['secondary'];
-    body['video'] = body['video'] === '' ? `mp4/bg.mp4` : body['video'];
+    body['primary'] = body['primary'] || defaultStyle.primary;
+    body['secondary'] = body['secondary'] || defaultStyle.secondary;
+    body['video'] = body['video'] || defaultStyle.video;
     return body;
   });
 
