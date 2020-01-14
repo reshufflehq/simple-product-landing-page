@@ -11,11 +11,19 @@
     "@reshuffle/server-function": "^0.1.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "fastest-validator": "^1.0.0",
     "handlebars": "^4.5.3",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "prettier": "^1.19.1"
   },
   "scripts": {
     "start": "reshuffle-local-server",
-    "build": "echo nothing to build"
+    "build": "echo nothing to build",
+    "check-prettier": "prettier --ignore-path .gitignore -c \"**/*.js\""
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "jsxSingleQuote": true
   }
 }
