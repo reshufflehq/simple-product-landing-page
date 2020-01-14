@@ -6,7 +6,7 @@ import { get, find, Q, update, create, remove } from '@reshuffle/db';
 import { defaultHandler } from '@reshuffle/server-function';
 import { authHandler } from '@reshuffle/passport';
 import devDBAdmin from '@reshuffle/db-admin';
-import { defaultStyle } from './constants';
+import { keys } from './constants';
 import { schema } from './schema';
 
 const validator = new Validator();
@@ -24,23 +24,23 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
 app.get('/', async function(req, res) {
-  let texts = await get('texts');
+  let texts = await get(keys.texts);
   res.render('index', { texts: texts });
 });
 
 app.get('/admin', async function(req, res) {
   if (req.user) {
-    let texts = await get('texts');
-    const allKeysQuery = Q.filter(Q.key.startsWith('user/'));
+    let texts = await get(keys.texts);
+    const allKeysQuery = Q.filter(Q.key.startsWith(`${keys.user}/`));
     const result = await find(allKeysQuery);
-    res.render('admin', {
+    res.render(keys.admin, {
       user: req.user,
       data: result,
       texts: texts,
       layout: false,
     });
   } else {
-    let host = req.get('host');
+    let host = req.get(keys.host);
     if (host.startsWith('localhost')) {
       host = `http://${host}`;
     } else {
@@ -60,7 +60,7 @@ app.post('/register', express.json(), async function(req, res) {
   if (valid.length) {
     res.status(200).send(valid[0].message);
   } else {
-    let key = `user/${req.body.email}`;
+    let key = `${keys.user}/${req.body.email}`;
     let time = moment().toISOString(true);
     let value = { email: req.body.email, time: time };
     await create(key, value);
@@ -69,20 +69,15 @@ app.post('/register', express.json(), async function(req, res) {
 });
 
 app.post('/update', express.json(), async function(req, res) {
-  let key = `texts`;
-  const created = await update(key, () => {
-    const body = { ...req.body };
-    body['primary'] = body['primary'] || defaultStyle.primary;
-    body['secondary'] = body['secondary'] || defaultStyle.secondary;
-    body['video'] = body['video'] || defaultStyle.video;
-    return body;
+  await update(keys.texts, () => {
+    return req.body;
   });
 
   res.sendStatus(200);
 });
 
 app.post('/delete', express.json(), async function(req, res) {
-  let key = `user/${req.body.email}`;
+  let key = `${keys.user}/${req.body.email}`;
   await remove(key);
   res.sendStatus(200);
 });
