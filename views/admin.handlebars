@@ -11,36 +11,32 @@
     };
 
     function updateFields() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("results").innerHTML = "<div class='alert alert-success' role='alert'>value updated!<div>"
-        }
-      };
-      xhttp.open("POST", "./update", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(`{"product":"${document.getElementById("product").value}",
-       "pitch":"${document.getElementById("pitch").value}",
-       "primary":"${document.getElementById("primary").value}",
-       "secondary":"${document.getElementById("secondary").value}",
-       "video":"${document.getElementById("video").value}",
-       "twitter":"${document.getElementById("twitter").value}",
-       "facebook":"${document.getElementById("facebook").value}",
-       "instagram": "${document.getElementById("instagram").value}"}`
-      );
+      const body = JSON.stringify({
+        product: document.getElementById("product").value,
+        pitch: document.getElementById("pitch").value,
+        primary: document.getElementById("primary").value,
+        secondary: document.getElementById("secondary").value,
+        video: document.getElementById("video").value,
+        twitter: document.getElementById("twitter").value,
+        facebook: document.getElementById("facebook").value,
+        instagram: document.getElementById("instagram").value
+      });
+      const req = { method: 'POST', body: body, headers: { "Content-type": "application/json" } };
+
+      fetch("./update", req)
+        .then(res => { document.getElementById("results").innerHTML = "<div class='alert alert-success' role='alert'>value updated!<div>" })
+        .catch(err => { document.getElementById("results").innerHTML = "<div class='alert alert-danger' role='alert'>Sorry, Something went wrong<div>" });
     }
+
     function handleDelete() {
       let id = this.event.target.id;
-      if (id != undefined) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            location.reload();
-          }
-        };
-        xhttp.open("POST", "./delete", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(`{ "email": "${id}" }`);
+      if (id) {
+        const body = JSON.stringify({ email: id, });
+        const req = { method: 'POST', body: body, headers: { "Content-type": "application/json" } };
+
+        fetch("./delete", req)
+          .then(res => location.reload())
+          .catch(err => { document.getElementById("results").innerHTML = "<div class='alert alert-danger' role='alert'>Sorry, Something went wrong<div>" });
       }
     }
 

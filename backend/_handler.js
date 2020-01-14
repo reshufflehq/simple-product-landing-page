@@ -18,7 +18,6 @@ app.set('trust proxy', true);
 // app.use('/db/db-admin', express.json(), devDBAdmin.devDBAdminHandler);
 
 app.use(authHandler);
-
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.use(express.static('public'));
