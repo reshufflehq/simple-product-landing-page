@@ -22,68 +22,30 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template -->
   <link href="css/coming-soon.min.css" rel="stylesheet">
-  <style>
-    /* unvisited link */
-    a:link {
-      color: white;
-    }
-
-    /* visited link */
-    a:visited {
-      color: white;
-    }
-
-    /* mouse over link */
-    a:hover {
-      color: white;
-    }
-
-    /* selected link */
-    a:active {
-      color: white;
-    }
-
-    header {
-      padding: 156px 0 100px;
-    }
-
-    section {
-      padding: 150px 0;
-    }
-
-    .invalid-feedback {
-      font-size: 100%;
-      color: white;
-    }
-  </style>
   <script>
     function newRegister() {
-      const email = document.getElementById("email");
-      if (!validateEmail(email.value)) {
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const email = document.getElementById('email');
+      if (!emailRegex.test(email.value)) {
         email.classList.add('is-invalid');
         return;
       }
-      email.classList.remove('is-invalid');
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("form").innerHTML = "<div>Thank you for registering!<div>"
-        }
-        else {
-          email.classList.add('is-invalid');
-        }
+      const body = JSON.stringify({ email: email.value });
+      const req = {
+        method: 'POST',
+        body: body,
+        headers: { 'Content-type': 'application/json' },
       };
-      xhttp.open("POST", "./register", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send('{"email":"' + email.value + '"}');
 
-    }
-
-    function validateEmail(email) {
-      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        return (true)
-      }
-      return (false)
+      fetch('./register', req)
+        .then(
+          (res) =>
+            (document.getElementById('form').innerHTML =
+              '<div>Thank you for registering!<div>'),
+        )
+        .catch((err) => {
+          email.classList.add('is-invalid');
+        });
     }
   </script>
 
