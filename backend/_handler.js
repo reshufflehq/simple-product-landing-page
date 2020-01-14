@@ -1,14 +1,17 @@
 import express from 'express';
-import { get, remove } from '@reshuffle/db';
+import Validator from 'fastest-validator';
 const db = require('@reshuffle/db');
 import path from 'path';
 import { defaultHandler } from '@reshuffle/server-function';
+import { schema } from './schema';
 import { authHandler } from '@reshuffle/passport';
 const moment = require('moment');
 const devDBAdmin = require('@reshuffle/db-admin');
 var exphbs = require('express-handlebars');
 
+const validator = new Validator();
 const app = express();
+
 app.set('trust proxy', true);
 app.use('/db/db-admin', express.json(), devDBAdmin.devDBAdminHandler);
 app.use(authHandler);
@@ -49,13 +52,17 @@ app.get('/users', async function(req, res) {
 });
 
 app.post('/register', express.json(), async function(req, res) {
-  let key = `user/${req.body.email}`;
-
-  let time = moment().format('MMMM Do YYYY, h:mm:ss a');
-  let value = { email: req.body.email, time: time };
-  const created = await db.create(key, value);
-
-  res.sendStatus(200);
+  const email = req.body.email;
+  const valid = validator.validate({ email: email }, schema);
+  if (valid.length) {
+    res.status(200).send(valid[0].message);
+  } else {
+    let key = `user/${req.body.email}`;
+    let time = moment().format('MMMM Do YYYY, h:mm:ss a');
+    let value = { email: req.body.email, time: time };
+    await db.create(key, value);
+    res.sendStatus(200);
+  }
 });
 
 //todo protect this endpoint
