@@ -66,3 +66,16 @@ video {
 .admin-link > a {
   color: white;
 }
+
+.register:hover {
+  border: none;
+  background-color: #e59e8d !important;
+}
+
+.register {
+  border-color: none;
+}
+
+.invalid-feedback {
+  font-size: 100%;
+}

@@ -1,6 +1,6 @@
 export const defaultStyle = {
-  primary: `#002e66`,
-  secondary: `#cd9557`,
+  primary: `#19303b`,
+  secondary: `#e59e8d`,
   video: `mp4/bg.mp4`,
 };
 

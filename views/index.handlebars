@@ -13,13 +13,13 @@
             <div class='form-group'>
               <input id="email" type="email" class="form-control" placeholder="Enter email..."
                 aria-label="Enter email..." aria-describedby="email" required />
-              <div class="invalid-feedback">
+              <div class="invalid-feedback text-white">
                 Please enter valid email address
               </div>
             </div>
 
             <div class="input-group-append">
-              <button class="btn btn-secondary" style="background-color:{{texts.secondary}};" type=" button"
+              <button class="btn btn-secondary register" style="background-color:{{texts.secondary}};" type=" button"
                 onclick="newRegister()">Notify Me!</button>
             </div>
           </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="row">
       <div class="col admin-link">
-        For edit this site click <a href='/admin'>Here</a>
+        For edit this site click <a style="color:{{texts.secondary}};" href='/admin'>Here</a>
 
       </div>
     </div>
