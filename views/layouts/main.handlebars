@@ -20,49 +20,50 @@
   <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i"
     rel="stylesheet">
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
   <!-- Custom styles for this template -->
   <link href="css/coming-soon.min.css" rel="stylesheet">
-    <style>
-/* unvisited link */
-a:link {
-  color: white;
-}
-
-/* visited link */
-a:visited {
-  color: white;
-}
-
-/* mouse over link */
-a:hover {
-  color: white;
-}
-
-/* selected link */
-a:active {
-  color: white;
-}
-</style>
   <script>
     function newRegister() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("form").innerHTML = "<div>Thank you for registering!<div>"
-        }
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const email = document.getElementById('email');
+      if (!emailRegex.test(email.value)) {
+        email.classList.add('is-invalid');
+        return;
+      }
+      const body = JSON.stringify({ email: email.value });
+      const req = {
+        method: 'POST',
+        body: body,
+        headers: { 'Content-type': 'application/json' },
       };
-      xhttp.open("POST", "./register", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send('{"email":"' + document.getElementById("email").value + '"}');
+
+      fetch('./register', req)
+        .then(
+          (res) =>
+            (document.getElementById('form').innerHTML =
+              '<div>Thank you for registering!<div>'),
+        )
+        .catch((err) => {
+          email.classList.add('is-invalid');
+        });
     }
   </script>
+  <style>
+    .register:hover {
+      border: none;
+      background-color: #e59e8d !important;
+    }
 
+    .register {
+      border-color: none;
+    }
+  </style>
 </head>
 
 <body>
 
-    {{{body}}}
+  {{{body}}}
 
 </body>
+
 </html>

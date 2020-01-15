@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "key": "texts",
+      "data": {
+        "product": "Coming Soon",
+        "pitch": "We're working hard to finish the development of this site.  Sign up for updates using the form below!",
+        "primary": "#19303b",
+        "secondary": "#e59e8d",
+        "video": "mp4/bg.mp4",
+        "twitter": "https://twitter.com/",
+        "facebook": "https://facebook.com/",
+        "instagram": "https://instagram.com/"
+      }
+    }
+  ]
+}

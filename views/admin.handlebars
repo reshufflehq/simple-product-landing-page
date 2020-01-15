@@ -1,43 +1,226 @@
 <html>
+
 <head>
-<script>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script>
+    const defaultStyle = {
+      primary: `#19303b`,
+      secondary: `#e59e8d`,
+      video: `mp4/bg.mp4`,
+    };
+
     function updateFields() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("results").innerHTML = "<div>value updated!<div>"
-        }
+      const body = JSON.stringify({
+        product: document.getElementById('product').value,
+        pitch: document.getElementById('pitch').value,
+        primary: document.getElementById('primary').value,
+        secondary: document.getElementById('secondary').value,
+        video: document.getElementById('video').value,
+        twitter: document.getElementById('twitter').value,
+        facebook: document.getElementById('facebook').value,
+        instagram: document.getElementById('instagram').value,
+      });
+      const req = {
+        method: 'POST',
+        body: body,
+        headers: { 'Content-type': 'application/json' },
       };
-      xhttp.open("POST", "./update", true);
-      xhttp.setRequestHeader("Content-type", "application/json");
-      xhttp.send(`{"product":"${document.getElementById("product").value}",
-       "pitch":"${document.getElementById("pitch").value}"}`);
+
+      fetch('./update', req)
+        .then((res) => {
+          document.getElementById('results').innerHTML =
+            "<div class='alert alert-success' role='alert'>value updated!<div>";
+        })
+        .catch((err) => {
+          document.getElementById('results').innerHTML =
+            "<div class='alert alert-danger' role='alert'>Sorry, Something went wrong<div>";
+        });
     }
+
+    function handleDelete() {
+      let id = this.event.target.id;
+      if (id) {
+        const body = JSON.stringify({ email: id });
+        const req = {
+          method: 'POST',
+          body: body,
+          headers: { 'Content-type': 'application/json' },
+        };
+
+        fetch('./delete', req)
+          .then((res) => location.reload())
+          .catch((err) => {
+            document.getElementById('results').innerHTML =
+              "<div class='alert alert-danger' role='alert'>Sorry, Something went wrong<div>";
+          });
+      }
+    }
+
+    function resetPrimary() {
+      document.getElementById('primary').value = defaultStyle.primary;
+    }
+
+    function resetSecondary() {
+      document.getElementById('secondary').value = defaultStyle.secondary;
+    }
+
+    function resetVideo() {
+      document.getElementById('video').value = defaultStyle.video;
+    }
+
   </script>
+  <style>
+    header {
+      padding: 50px 0 50px;
+      background-color: #19303b;
+    }
+
+    main {
+      padding: 30px 0;
+    }
+
+    .btn-secondary {
+      background-color: #e59e8d;
+      border-color: #e59e8d;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.5rem;
+      width: 20%;
+    }
+
+    .btn-jumbotron {
+      background-color: rgba(0, 46, 102, .8);
+      border-color: rgba(0, 46, 102, .8);
+      color: white;
+
+    }
+
+    .jumbotron {
+      padding: 2rem;
+    }
+
+    fieldset.scheduler-border {
+      border: 0.5px groove #ddd !important;
+      padding: 0 1.4em 1.4em 1.4em !important;
+      margin: 0 0 1.5em 0 !important;
+    }
+
+    legend.scheduler-border {
+      font-size: 1em !important;
+      text-align: left !important;
+      width: auto;
+      padding: 0 10px;
+      border-bottom: none;
+    }
+  </style>
 </head>
 
-<body>
-<h1>Hello: {{user.displayName}}</h1>
+<body id="page-top">
+  <header class="text-white admin-header">
+    <div class="container text-center">
+      <h1 class='mb-3'>Welcome {{user.displayName}}</h1>
+      <p class="lead">This is the landing page content updater</p>
+    </div>
+  </header>
 
-<div>
-<h2>update page content</h2>
+  <main class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div id='results'></div>
+        <!--product name-->
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label pr-0">Product Name</label>
+          <div class="col-lg-10">
+            <input type="text" name="product" id="product" class="form-control" value="{{texts.product}}" />
+          </div>
+        </div>
+        <!--pitch details-->
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label pr-0">Product Pitch</label>
+          <div class="col-lg-10">
+            <textarea type="text" name="pitch" id="pitch" class="form-control">{{texts.pitch}}</textarea>
+          </div>
+        </div>
+        <!--Background colors-->
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Background Style</legend>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label pr-0">Video URL</label>
+            <div class="col-lg-8 pr-0">
+              <input type="text" name="video" id="video" class="form-control" value="{{texts.video}}" />
+            </div>
+            <button class='btn btn-link col-sm-1 p-0' onclick="resetVideo()">reset</button>
 
-    <label>Product name</label>
-    <input type="text" name="product" id="product" value="{{texts.product}}"/>
-    <br/>
-    <label>Product pitch</label>
-    <textarea name="pitch" id="pitch">{{texts.pitch}}</textarea>
-    <br/>
-    <button id="save" onclick="updateFields()">Save</button>
-    <div id="results"> </div>
-<h2>Registered user</h2>
-<ul>
-    {{#each data}}
-     <li>Email: <b> {{this.value.email}}</b> registered at {{this.value.time}}</li>
-    {{/each}}
-</ul>
-</div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label pr-0">Primary Color</label>
+            <div class="col-sm-2 pr-0">
+              <input type="color" class="form-control" id="primary" name='primary' value="{{texts.primary}}">
+            </div>
+            <button class='btn btn-link col-sm-1 p-0' onclick="resetPrimary()">reset</button>
+            <label for="inputEmail3" class="col-sm-3 col-form-label pr-0 text-right">Secondary Color</label>
+            <div class="col-sm-2 pr-0">
+              <input type="color" class="form-control" id="secondary" name='secondary' value="{{texts.secondary}}">
+            </div>
+            <button class='btn btn-link col-sm-1 p-0' onclick="resetSecondary()">reset</button>
+          </div>
+        </fieldset>
+        <!--Social-->
+        <fieldset class="scheduler-border">
+          <legend class="scheduler-border">Social Links</legend>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label pr-0">Twitter URL</label>
+            <div class="col-lg-10">
+              <input type="text" name="twitter" id="twitter" class="form-control" value="{{texts.twitter}}" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label pr-0">Facebook URL</label>
+            <div class="col-lg-10">
+              <input type="text" name="facebook" id="facebook" class="form-control" value="{{texts.facebook}}" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label pr-0">Instagram URL</label>
+            <div class="col-lg-10">
+              <input type="text" name="instagram" id="instagram" class="form-control" value="{{texts.instagram}}" />
+            </div>
+          </div>
+        </fieldset>
+        <!--Submit-->
+        <div class=" form-group row">
+          <div class="col-lg-10">
+            <button id="save" class='btn btn-secondary' onclick="updateFields()">Save</button>
+          </div>
+        </div>
 
+        <div class="jumbotron">
+          <h1 class='display-4'>Registered user</h1>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Registered Date</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {{#each data}}
+              <td>{{this.value.email}}</td>
+              <td>{{this.value.time}}</td>
+              <td>
+                <button id={{this.value.email}} onClick="handleDelete()" class='btn btn-jumbotron btn-sm'>
+                  Delete
+                </button>
+              </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </main>
 </body>
-</html>
 
+</html>
