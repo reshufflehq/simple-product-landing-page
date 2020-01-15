@@ -35,3 +35,7 @@ npx reshuffle deploy
 ```
 
 from the projects root directory
+
+## Credits
+
+This project was inspired from [startbootstrap-coming-soon](https://github.com/BlackrockDigital/startbootstrap-coming-soon.git)
