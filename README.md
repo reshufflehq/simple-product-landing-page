@@ -1,6 +1,21 @@
-# Simple Product page starter
+# Simple Landing Page
 
-Basic boilerplate for creating an app landing page. Visit /admin to see the emails collected. 
+Basic boilerplate for creating an app landing page. Visit /admin to manage the emails collected.
+This project implemented with Reshuffle, Handlebars, REST API, gulp and bootstrap.
+
+## Screenshot
+
+### Home Page
+
+<p>
+
+<img src="./app-screen.png" width="50%" height="50%">
+
+### Admin Page
+
+<img src="./app-screen2.png" width="50%" height="50%">
+
+</p>
 
 ## Running locally
 
