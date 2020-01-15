@@ -1,7 +1,7 @@
 /*!
- * Start Bootstrap - Coming Soon v5.0.7 (https://startbootstrap.com/template-overviews/coming-soon)
- * Copyright 2013-2020 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-coming-soon/blob/master/LICENSE)
+ * Start Bootstrap - landing page v0.0.1 ()
+ * Copyright 2013-2020 
+ * Licensed under MIT (https://github.com/BlackrockDigital/landing-page/blob/master/LICENSE)
  */
 
 html {
@@ -57,6 +57,19 @@ video {
   background-color: #cd9557;
   opacity: 0.7;
   z-index: 1;
+}
+
+.form-row {
+  height: 90% !important;
+}
+
+.admin-link {
+  color: white;
+  padding-left: 4rem;
+}
+
+.admin-link > a {
+  color: white;
 }
 
 .masthead {

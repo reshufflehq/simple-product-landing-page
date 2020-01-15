@@ -1,5 +1,5 @@
 {
-  "name": "express-only",
+  "name": "landing-page-handlebars",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,6 +11,7 @@
     "@reshuffle/server-function": "^0.1.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "fastest-validator": "^1.0.0",
     "handlebars": "^4.5.3",
     "moment": "^2.24.0"
   },
