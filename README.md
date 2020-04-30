@@ -1,3 +1,5 @@
+# We have terminated the backend for this project.  Old Reshuffle projects can no longer be deployed.
+
 # Simple Landing Page
 
 Basic boilerplate for creating an app landing page. Visit /admin to manage the emails collected.
